@@ -1,0 +1,51 @@
+---
+label: Blog Post
+hide_body: false
+fields:
+- name: title
+  type: text
+  config:
+    required: true
+    min: 4
+    max: 68
+  label: Title
+- name: description
+  type: textarea
+  default: ''
+  config:
+    required: true
+    wysiwyg: false
+    schema:
+      format: markdown
+    max: 134
+    min: 4
+  label: Description
+- name: date
+  type: datetime
+  label: Date
+  description: ''
+  config:
+    required: true
+    date_format: 
+    time_format: 
+    display_utc: false
+  default: now
+- name: draft
+  type: boolean
+  label: Draft
+  default: true
+- name: pinned
+  type: boolean
+  label: Pinned
+- name: tags
+  type: tag_list
+  default: []
+  label: Tags
+- name: categories
+  type: tag_list
+  default: []
+  label: Categories
+- name: series
+  type: tag_list
+  default: []
+  label: Series
