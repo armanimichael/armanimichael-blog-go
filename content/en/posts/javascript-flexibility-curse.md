@@ -65,7 +65,7 @@ In practice, it's possible to achieve AJAX methodology by using the built-in [XM
 
 ### To the stars
 
-This is not the complete history of the language. But it should give you an idea of how all of this came to be. 
+This is not the complete history of the language. But it should give you an idea of how all of this came to be.
 
 As of now, JavaScript is the star of the Web. Everybody uses it, everybody likes it, and everybody finds ways to reinvent the wheel with it.
 
@@ -73,20 +73,28 @@ As of now, JavaScript is the star of the Web. Everybody uses it, everybody likes
 
 As the title of the post implies, I tend to think JavaScript flexibility is not necessarily great.
 
-The reason I started by me talking about my personal experience, is because I was trying to get people to understand how **a language as wide as JavaScript can sound confusing and messy to somebody that's never touched it**.
+The reason I started by me talking about my personal experience, is because I was trying to get people to understand how **a language as wide as JavaScript can sound confusing and messy to somebody that's never touched it**. A great part of this issue comes from the language's flexible nature.
 
-Let's get starting with some practical examples.
-
-### Learning the actual language vs APIs
-
-Something beginners tend to misunderstand is the difference between the actual language standard and [Web APIs](https://developer.mozilla.org/en-US/docs/Web/API "Web APIs").
-
-This usually leads to people trying to learn the APIs first, without having much of a clue of how they work in practice in a language like JS.
-
-For instance, I briefly mentioned **promises**. You can use the fetch API without knowing what they are. However, this also means you're also writing code by example, and if you need to change something to work for you, you may have no clue where to start from.
-
-For example, you may have problems converting a promise-based function to an [Async/Await](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/async_function "Async/Await") function.
-
-Getting to know the language you're working with is absolutely important. Web APIs rely on the language, if you understand how JS works you can use them however you like.
+Let's get starting with some more detailed examples.
 
 ### Type System
+
+**JavaScript is dynamically typed** unless you're working in TypeScript but that's another matter.
+
+Having a dynamically typed language is not a problem, you either like it or you don't. Obviously, you need to have strong and reliable code if you want to avoid type problems since the language won't do that for you!
+
+For instance, you're good to go if you want to have an array of mixed types such as the following.
+
+```javascript
+const arr = ['string', 1, [1, 2, 3], { a: 123 }];
+```
+
+However, this can lead to 'interesting' behaviors.  
+Let's say you want to loop this array, cool you can do that. But what if you try to sum all the values of `arr`?  
+Let's try it!
+
+```javascript
+const sum = 0;
+arr.reduce((prev, curr) => prev + curr, sum);
+console.log(sum);
+```
