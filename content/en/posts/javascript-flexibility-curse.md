@@ -81,7 +81,7 @@ Let's get starting with some more detailed examples.
 
 **JavaScript is dynamically typed** unless you're working in TypeScript but that's another matter.
 
-Having a dynamically typed language is not a problem, you either like it or you don't. Obviously, you need to have strong and reliable code if you want to avoid type problems since the language won't do that for you!
+Having a dynamically typed language is not a problem, you either like it or you don't. You need to have strong and reliable code if you want to avoid type problems since the language won't do that for you!
 
 For instance, you're good to go if you want to have an array of mixed types such as the following.
 
@@ -98,3 +98,159 @@ const sum = 0;
 arr.reduce((prev, curr) => prev + curr, sum);
 console.log(sum);
 ```
+
+If you try to run this, `sum` will be `0`.
+
+**_No errors, no nothing._**
+
+This is a silly example, but in a more complex case, you wouldn't have a clue why. At least until you have lost some time debugging the code.
+
+This is dangerous. Yet, this is an issue we can avoid by following good practices.  
+**The problem with so many libraries running around NPM is that you're never sure everybody is following good practices**.
+
+You can read the code of the packages, but you cannot waste time reviewing every single package you install!
+
+In cases like this, not even `'use strict'` helps. It's only a matter of what a developer does, it's just a matter of hope in reality.
+
+Another set of troubles that can arise relates to objects with a dynamic type system.  
+Unless your editor helps you with that, **the language won't care if you're accessing an object property that's not there until you reach that line of code.**
+
+For example, if you have an object like this.
+
+```javascript
+const obj = {
+  someProp: 1
+};
+```
+
+You can access this property `obj.SomeProp`, but it's not the same and will return `undefined`.
+
+Good luck debugging something like this in a large code base if it ever happens.
+
+### Everything is a boolean
+
+JavaScript is famously known to treat everything as a boolean value.
+
+This can prove quite useful, but in practice, it **can also lead to unexpected behaviors**.
+
+This concept proves useful when you need to check for the existence of something, for example, if you need to check if a call to an external API yielded any result.
+
+```javascript
+const res = await fetch(someUrl);
+const text = await res.text();
+
+if (text) {
+	console.log(text)
+}
+```
+
+As you can see, no need to check for the length of the text response `if (text.length > 0)`, or anything like that. The response here could be an empty object, this example is just for the sake of simplicity.
+
+But, in reality, this does only save some space and could be avoided with no problems. Also because doing something like **this could prove harmful**.
+
+What happens if the response is `0`, and we need to do something with it? In this particular case, we wouldn't enter the `if` statement, compromising our logic.
+
+That's because, for JavaScript, checking against `0` is the same as checking against `false`. We could solve this problem by doing something like I wrote above `if (text.length > 0)` and we could also add some checks to ensure `text !== undefined && text !== null`.
+
+Using the entire variable as a condition can save some keystrokes, but it could also introduce bugs. We need to be careful with this kind of logic, it could backfire.
+
+### Equality vs Strict Equality
+
+Coming from the example above, another confusing construct in JavaScript is the [equality operator](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Equality).
+
+Most programming languages use the `==` format. In JS, however, the equality operator does a _'loose'_ equality check. It doesn't check for types, it just checks for apparent equality.
+
+This means if we have two values `1` and `'1'`, according to the `==` operator, they're equal. Things get more confusing if we start using the equality operator with `undefined` and `null`.
+
+As a good practice, if you're testing against something, you probably don't need to use the equality operator, but the [**STRICT equality operator**](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Strict_equality). Which does exactly what you would expect from any other language.
+
+You may want to use the classic `==` in JavaScript, although most of the time you probably don't need to. I usually stick to the strict equality operator as default, at the end of the day is you as a developer that needs to make a choice.
+
+When I was still a beginner with this language, I did some terrible mistakes by misunderstanding this concept.
+
+Note, that the strict equality operator feature has not been there since the start, it was introduced to fill the holes in the language specifications.
+
+### Variables scopes
+
+Another dangerous concept to play with scopes. **In JavaScript, the scope of a variable depends on how you define them.**
+
+For example, if you use the classic `var` statement, you're defining a **function-scoped variable**.  
+So, when you define a `var` variable, it will be accessible by the whole function, even if it's declared in a lower block scope.
+
+```javascript
+function doStuff() {
+  if (true) {
+    var someVar = 1;
+  }
+  
+  someVar = 2;
+  console.log(someVar);
+}
+```
+
+This will print `2`. This is because `someVar` doesn't care about the block it's inside, it only cares about the function it's inside of.
+
+Also, thanks to [hoisting](https://developer.mozilla.org/en-US/docs/Glossary/Hoisting "hoisting"), you can do this.
+
+```javascript
+function doStuff() {
+  console.log(someVar);
+  var someVar = 1;
+}
+```
+
+In this case, the script will print `undefined`, but it will work as the declaration is moved at the top by the interpreter.
+
+There are times when this could prove useful, but in general, you'd probably prefer to use `let` and `const`.
+
+These two statements work as you would expect in any other language. They're **block-scoped**, and you cannot access them before defining them.
+
+Hoisting is still a thing, however, it won't assign the variables a default value, causing an error.
+
+Doing the same as the above examples  `let` will throw an error.  
+The only difference between `let` and `const` is that the latter is, as the name implies, a constant. You need to declare and initialize it in a single passage `const someVar = 1;` and you cannot change it after that.
+
+### Immutability
+
+I decided to place **immutability** right after variables scoping for a reason. As I said, `const` allow us to define constants. But **constants are not immutable**.
+
+You cannot redefine constants, but you surely can alter them if they're objects.
+
+A constant array is not an immutable array, you can create an empty constant array and then push some values in it.
+
+```javascript
+const arr = [];
+arr.push(1, 2, 3);
+```
+
+It will work just fine.
+
+What you cannot do with a constant is redefine it. The following will throw.
+
+```javascript
+const arr = [];
+arr = [1, 2, 3];
+```
+
+By using a constant, we can also alter an object for example.  
+You need to be aware of how this works because **using a constant won't save you from side effects**.
+
+This concept becomes fundamental when you work with frameworks like ReactJS, where **State** is a central aspect.
+
+## Some conclusions
+
+I surely didn't write about any single flexibility problem that we can encounter while using JavaScript. **There are far more concepts I could potentially talk about**, this is just a mere series of general ideas.
+
+**This post doesn't serve as an attack against JavaScript.** I like the language.
+
+Yet, we need to be aware of some caveats.
+
+Using a tool like JavaScript can seem easy, and it probably is.  
+The problem is mastering its usage. You can write scripts, but can you understand every implication of what you're doing?
+
+I know I can, at least in part, because I decided to dig into the language.  
+This happened after I realized how little I knew about it, And I'm sure there are still lots of things I don't know about it yet.
+
+Jumping to the easy conclusion is never great, you should never do it even when working with a programming language.
+
+A programming language is just a tool to solve our problems. Once you understand how to use the tool, you can focus on the problems you're trying to solve.
