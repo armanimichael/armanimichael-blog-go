@@ -2,7 +2,6 @@
 categories = ["Web"]
 date = 2022-06-22T21:43:26Z
 description = "Some thoughts about JavaScript as a widely popular language"
-draft = true
 pinned = false
 series = []
 tags = ["programming languages"]
