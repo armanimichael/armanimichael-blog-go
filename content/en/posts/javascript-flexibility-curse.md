@@ -13,14 +13,15 @@ title = "JavaScript flexibility curse"
 The first time I ever touched JavaScript was in High School, **it was not a pleasant experience.**
 
 Our professors figured a good way of improving the learning experience was to let us create a **video game**. That doesn't sound that bad. I and my friends had the same idea at first.  
-Things started going downhill as soon as we began to, in practice we were not given any direction on anything. We didn't know anything about the language, nor about game development.
+Things started going downhill as soon as we began tho, in practice we were not given any direction on anything. We didn't know anything about the language, nor about game development.
 
-The only thing they provided us with was the library, [Phaser](https://phaser.io/ "Phaser"). Which is a great library by the way, if you're into game development and the Web you should check it out!
+The only thing they provided us with was the library, [Phaser](https://phaser.io/ "Phaser"). Which is a great library by the way, if you're into game development and the Web you should check it out!  
+I actually returned to that same library on my own a while later, messing around and having some fun creating tiny web games.
 
 Now, I know what people may think. You were in a tech school, messing around should have been enough to solve my problems.  
 That's what I and my team did. We came from C#, and I had some knowledge of Python, we were no strangers to programming concepts.
 
-The fact was, that **JavaScript seemed to allow us to do pretty much anything**. You wrote some messy function and it run.  
+The fact was that **JavaScript seemed to allow us to do pretty much anything**. You wrote some messy function and it run.  
 I mean... Perhaps, it acted funny because of `null` or `undefined` values, or having weird behaviors related to the incorrect use of `this` - but most of the time it didn't wholly explode before our eyes.
 
 Our project consisted of **massive and complexly structured files** containing our game logic.
@@ -30,11 +31,16 @@ For instance, I remember we had problems instantiating new objects representing 
 
 To be clear, I ended up having the max grade. But not because I wrote a great project, with sound logic implementation, maintainable and performant. It was merely because it worked in one way or the other, and that was sufficient. Go figure.
 
+One of my biggest regret about this school project is our decision not to use git, mostly because a couple of my team members didn't know how to use it.  
+We ended up storing the code on Google Drive! It was hell on Earth, I don't even want to know how we came up with such a destructive idea.
+
+Mistakes were made, but at least we learned quite a lot.
+
 ## Story Time!
 
 We can say JavaScript was born in a rush. [Brendan Eich](https://en.wikipedia.org/wiki/Brendan_Eich ), the original creator of JS, developed it in just 10 days!
 
-JavaScript was born at **the end of 1995**. To put this in perspective the [WWW](https://home.cern/science/computing/birth-web) was firstly **released to the public in 1991** and released as **open software in 1993**.
+JavaScript was developed at **the end of 1995**. To put this in perspective the [WWW](https://home.cern/science/computing/birth-web) was firstly **released to the public in 1991** and released as **open software in 1993**.
 
 ### Nope, it's not Java
 
